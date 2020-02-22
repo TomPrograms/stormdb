@@ -3,6 +3,7 @@ declare module 'stormdb' {
     class StormDBClass {
       constructor(engine: StormDB.LocalFileEngine, options?: object);
 
+      static browserEngine(path: string, options?: object): BrowserEngine;
       static localFileEngine(path: string, options?: object): LocalFileEngine;
       default(defaultValue: object): StormDBClass;
       length(): StormDBClass;
