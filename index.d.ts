@@ -10,17 +10,22 @@ declare module 'stormdb' {
       push(value: any): void;
       get(value: any): StormDBClass;
       set(key: any, value: any): StormDBClass;
+      map(func: any): StormDBClass;
+      sort(func: any): StormDBClass;
+      filter(func: any): StormDBClass;
       value(): any;
       setValue(value: any, pointers: any[], setRecursively?: boolean): void;
       save(): Promise<void> | null;
     }
 
-    class Base {
-      serialize<T>(data: T): (data: T) => void;
-      deserialize<T>(data: T): (data: T) => void;
+    class LocalFileEngine {
+      constructor(path: string, options?: object);
+      init(): object;
+      read(): object;
+      write(data: any): Promise<void> | null;
     }
 
-    class LocalFileEngine extends Base {
+    class BrowserEngine {
       constructor(path: string, options?: object);
       init(): object;
       read(): object;
