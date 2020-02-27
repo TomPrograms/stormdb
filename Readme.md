@@ -200,6 +200,21 @@ db.get("data").map(x => x ** 2);
 db.save();
 ```
 
+Reduce List, Finding Value of All Values in List Summed:
+
+```js
+// before = {'data': [1,2,3,4,5]}
+// after = {'data': 15}
+
+// find value of all numbers in list summed together
+db.get("data").reduce(
+  (accumulator, currentValue) => accumulator + currentValue
+);
+
+// save db
+db.save();
+```
+
 Leverage Serialize and Deserialize functions to encrypt and decrypt data:
 
 ```js
