@@ -78,6 +78,19 @@ class StormDB {
     return this;
   }
 
+  reduce(func) {
+    let list = this.value();
+
+    if (typeof func !== "function")
+      throw new Error("You can only pass functions to .reduce().");
+    if (!Array.isArray(list)) throw new Error("You can only reduce lists.");
+
+    let reducedValue = list.reduce(func);
+    this.set(reducedValue);
+
+    return this;
+  }
+
   get(value) {
     let clone = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
     clone.pointers = [...clone.pointers, value];
