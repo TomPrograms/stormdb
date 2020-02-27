@@ -245,6 +245,46 @@ describe("StormDB", function() {
     });
   });
 
+  describe(".reduce()", function() {
+    it("should reduce array", function() {
+      const engine = new StormDB.localFileEngine(exampleDBPath);
+      const db = new StormDB(engine);
+
+      db.get("test-list").reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+      );
+
+      let updatedList = db.get("test-list").value();
+      assert.deepEqual(updatedList, 15);
+    });
+
+    it("should refuse to reduce a non-array", function() {
+      const engine = new StormDB.localFileEngine(exampleDBPath);
+      const db = new StormDB(engine);
+
+      const tryReduce = () => {
+        db.get("test-string").reduce(
+          (accumulator, currentValue) => accumulator + currentValue
+        );
+      };
+
+      // should refuse to reduce string and therefore should raise an exception
+      assert.throws(tryReduce, Error);
+    });
+
+    it("should refuse to reduce not using function or undefined", function() {
+      const engine = new StormDB.localFileEngine(exampleDBPath);
+      const db = new StormDB(engine);
+
+      const tryReduce = () => {
+        db.get("test-list").reduce("non-function");
+      };
+
+      // should refuse to reduce with non-function and therefore should raise an exception
+      assert.throws(tryReduce, Error);
+    });
+  });
+
   describe(".filter()", function() {
     it("should filter array", function() {
       const engine = new StormDB.localFileEngine(exampleDBPath);
