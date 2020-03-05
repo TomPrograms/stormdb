@@ -220,7 +220,7 @@ Leverage Serialize and Deserialize functions to encrypt and decrypt data:
 ```js
 const engine = new StormDB.localFileEngine("./db.stormdb", {
   serialize: data => {
-    // ecrypt and serialize data
+    // encrypt and serialize data
     return encrypt(JSON.stringify(data));
   },
   deserialize: data => {
